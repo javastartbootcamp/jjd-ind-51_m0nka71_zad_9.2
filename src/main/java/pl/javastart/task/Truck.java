@@ -17,21 +17,17 @@ public class Truck extends Car {
         return super.isAirConditionStatus();
     }
 
-    double calculateFuelWithAirCon() {
+    double calculateRangeOfVehicle() {
         if (isAirConditionStatus()) {
             if (loadWeight > PER_NUMBER_OF_KM) {
-                double result = (loadWeight / PER_NUMBER_OF_KM) * FUEL_CONSUMPTION_WITH_LOAD_WEIGHT;
-                return result + getAverageFuelConsumption() + FUEL_CONSUMPTION_WITH_AIR_CON;
+                double consumptionWithWeight = (loadWeight / PER_NUMBER_OF_KM) * FUEL_CONSUMPTION_WITH_LOAD_WEIGHT;
+                double totalFuelConsumption = consumptionWithWeight + getAverageFuelConsumption() + FUEL_CONSUMPTION_WITH_AIR_CON;
+                return (getTankCapacity() / totalFuelConsumption) * PER_NUMBER_OF_KM;
             } else {
-                return getAverageFuelConsumption() + FUEL_CONSUMPTION_WITH_AIR_CON;
+                return getTankCapacity() / getAverageFuelConsumption() * 100;
             }
         }
-        return getAverageFuelConsumption();
-    }
-
-    @Override
-    double calculateRangeOfVehicle() {
-        return super.calculateRangeOfVehicle();
+        return getTankCapacity() / getAverageFuelConsumption() * 100;
     }
 
     @Override

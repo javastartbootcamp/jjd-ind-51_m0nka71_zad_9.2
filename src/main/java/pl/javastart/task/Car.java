@@ -18,19 +18,12 @@ public class Car extends Vehicle {
         this.airConditionStatus = airConditionStatus;
     }
 
-    double calculateFuelWithAirCon() {
-        if (airConditionStatus) {
-            return getAverageFuelConsumption() + FUEL_CONSUMPTION_WITH_AIR_CON;
-        }
-        return getAverageFuelConsumption();
-    }
-
     double calculateRangeOfVehicle() {
         if (airConditionStatus) {
-            return (getTankCapacity() / calculateFuelWithAirCon() * PER_NUMBER_OF_KM);
-        } else {
-            return getTankCapacity() / getAverageFuelConsumption() * PER_NUMBER_OF_KM;
+            double result = getAverageFuelConsumption() + FUEL_CONSUMPTION_WITH_AIR_CON;
+            return (getTankCapacity() / result) * PER_NUMBER_OF_KM;
         }
+        return getTankCapacity() / getAverageFuelConsumption() * PER_NUMBER_OF_KM;
     }
 
     void turnAirConditionOn() {
